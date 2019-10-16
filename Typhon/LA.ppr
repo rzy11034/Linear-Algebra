@@ -1,0 +1,23 @@
+program LA;
+
+{$mode objfpc}{$H+}
+
+uses {$IFDEF UNIX} {$IFDEF UseCThreads}
+  cthreads, {$ENDIF} {$ENDIF}
+  Classes,
+  SysUtils,
+  LA.Vector,
+  LA.Main,
+  LA.Utils;
+
+begin
+  try
+    Run;
+    TLAUtils.DrawLine;
+    Writeln(END_OF_PROGRAM_EN);
+    Readln;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.
