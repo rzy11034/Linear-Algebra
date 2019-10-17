@@ -1,4 +1,4 @@
-program LA;
+﻿program LA;
 
 {$mode objfpc}{$H+}
 
@@ -6,9 +6,12 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   cthreads, {$ENDIF} {$ENDIF}
   Classes,
   SysUtils,
-  LA.Vector,
   LA.Main,
-  LA.Utils;
+  LA.Utils,
+  LA.Matrix,
+  LA.Matrix.Main,
+  LA.Vector,
+  LA.Vector.Main;
 
 begin
   try

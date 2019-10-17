@@ -7,7 +7,10 @@ uses
   System.SysUtils,
   LA.Utils in 'Source\LA.Utils.pas',
   LA.Main in 'Source\LA.Main.pas',
-  LA.Vector in 'Source\LA.Vector.pas';
+  LA.Vector in 'Source\Vector\LA.Vector.pas',
+  LA.Vector.Main in 'Source\Vector\LA.Vector.Main.pas',
+  LA.Matrix in 'Source\Matrix\LA.Matrix.pas',
+  LA.Matrix.Main in 'Source\Matrix\LA.Matrix.Main.pas';
 
 begin
   try

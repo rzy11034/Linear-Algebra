@@ -12,7 +12,8 @@ procedure Run;
 
 implementation
 
-uses LA.Vector;
+uses
+  LA.Matrix.Main;
 
 procedure Run;
 begin

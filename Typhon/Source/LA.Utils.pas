@@ -1,4 +1,4 @@
-unit LA.Utils;
+﻿unit LA.Utils;
 
 {$mode objfpc}{$H+}
 
