@@ -15,18 +15,32 @@ implementation
 
 procedure Main;
 var
-  mtx: TMatrix;
+  mtx1, mtx2: TMatrix;
 begin
-  mtx := TMatrix.Create([[1, 2], [3, 4]]);
+  mtx1 := TMatrix.Create([[1, 2], [3, 4]]);
 
-  WriteLn(Format('matrix = %s', [mtx.ToString]));
-  WriteLn(Format('matrix.shape = (%d, %d)', [mtx.Shape[0], mtx.Shape[1]]));
-  WriteLn(Format('matrix.size = %d', [mtx.Size]));
-  WriteLn(Format('matrix.len = %d', [mtx.len]));
-  WriteLn(Format('matrix[0][0] = %s', [mtx[0, 0].ToString]));
+  WriteLn(Format('matrix = %s', [mtx1.ToString]));
+  WriteLn(Format('matrix.shape = %s', [mtx1.Shape.ToString]));
+  WriteLn(Format('matrix.size = %d', [mtx1.Size]));
+  WriteLn(Format('matrix.len = %d', [mtx1.len]));
+  WriteLn(Format('matrix[0][0] = %s', [mtx1[0, 0].ToString]));
 
-  WriteLn(Format('matrix.Col_vector[0] = %s', [mtx.Col_vector(0).ToString]));
-  WriteLn(Format('matrix.Row_vector[0] = %s', [mtx.Row_vector(0).ToString]));
+  WriteLn(Format('matrix.Col_vector[0] = %s', [mtx1.Col_vector(0).ToString]));
+  WriteLn(Format('matrix.Row_vector[0] = %s', [mtx1.Row_vector(0).ToString]));
+
+  mtx2 := TMatrix.Create([[5, 6], [7, 8]]);
+
+  Write('mtx1.Shape.EqualTo(mtx2.Shape) = ');
+  WriteLn(mtx1.Shape.EqualTo(mtx2.Shape));
+
+  WriteLn(Format('mtx1 + mtx2 = %s', [(mtx1 + mtx2).ToString]));
+  WriteLn(Format('mtx1 - mtx2 = %s', [(mtx1 - mtx2).ToString]));
+  WriteLn(Format('mtx1 * 2 = %s', [(mtx1 * 2).ToString]));
+  WriteLn(Format('2 * mtx1 = %s', [(2 * mtx1).ToString]));
+  WriteLn(Format('mtx1 / 2 = %s', [(mtx1 / 2).ToString]));
+  WriteLn(Format('-mtx1 = %s', [(-mtx1).ToString]));
+
+  WriteLn(Format('zero = %s', [(TMatrix.Zero(2, 3)).ToString]));
 end;
 
 end.

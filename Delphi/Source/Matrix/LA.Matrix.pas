@@ -15,7 +15,7 @@ type
   private
     __data: TList2D;
 
-    /// <summary> 返回矩阵pos位置的元素 </summary>     d
+    /// <summary> 返回矩阵pos位置的元素 </summary>
     function __getItem(i, j: integer): double;
 
   public

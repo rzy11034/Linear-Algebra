@@ -12,7 +12,12 @@ uses
 
 type
   TList2D = array of array of double;
-  TShape = array[0..1] of integer;
+
+  TShape = object
+    Row, Col: integer;
+    function EqualTo(x: TShape): boolean;
+    function ToString: string;
+  end;
 
   TMatrix = object
   private
@@ -23,6 +28,7 @@ type
 
   public
     class function Create(list2D: TList2D): TMatrix; static;
+    class function Zero(col, row: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
     function Row_vector(index: integer): TVector;
@@ -42,13 +48,133 @@ type
     property Item[row, col: integer]: double read __GetItem; default;
   end;
 
+operator +(const a, b: TMatrix): TMatrix;
+operator -(const a, b: TMatrix): TMatrix;
+operator * (const a: double; const b: TMatrix): TMatrix;
+operator * (const a: TMatrix; const b: double): TMatrix;
+operator / (const a: TMatrix; const b: double): TMatrix;
+//operator * (const a, b: TVector): TVector;
+operator +(const a: TMatrix): TMatrix;
+operator -(const a: TMatrix): TMatrix;
+
 implementation
+
+{ TShape }
+
+function TShape.EqualTo(x: TShape): boolean;
+begin
+  Result := True;
+
+  if Self.Col <> x.Col then
+    Result := False;
+
+  if Self.Row <> x.Row then
+    Result := False;
+end;
+
+function TShape.ToString: string;
+var
+  sb: TAnsiStringBuilder;
+begin
+  sb := TAnsiStringBuilder.Create;
+  try
+    sb.Append('(');
+    sb.Append(Self.Col);
+    sb.Append(', ');
+    sb.Append(Self.Row);
+    sb.Append(')');
+
+    Result := sb.ToString;
+  finally
+    FreeAndNil(sb);
+  end;
+end;
 
 { TMatrix }
 
+operator +(const a, b: TMatrix): TMatrix;
+var
+  i, j: integer;
+  ret: TMatrix;
+begin
+  if a.Shape.EqualTo(b.Shape) = False then
+    raise Exception.Create('Error in adding. Shape of matrix must be same.');
+
+  SetLength(ret.__data, a.Shape.Col, a.Shape.Row);
+
+  for i := 0 to ret.Shape.Col - 1 do
+  begin
+    for j := 0 to ret.Shape.Row - 1 do
+    begin
+      ret.__data[i, j] := a[i, j] + b[i, j];
+    end;
+  end;
+
+  Result := ret;
+end;
+
+operator -(const a, b: TMatrix): TMatrix;
+var
+  i, j: integer;
+  ret: TMatrix;
+begin
+  if a.Shape.EqualTo(b.Shape) = False then
+    raise Exception.Create('Error in subtracting. Shape of matrix must be same.');
+
+  SetLength(ret.__data, a.Shape.Col, a.Shape.Row);
+
+  for i := 0 to ret.Shape.Col - 1 do
+  begin
+    for j := 0 to ret.Shape.Row - 1 do
+    begin
+      ret.__data[i, j] := a[i, j] - b[i, j];
+    end;
+  end;
+
+  Result := ret;
+end;
+
+operator * (const a: double; const b: TMatrix): TMatrix;
+var
+  i, j: integer;
+  ret: TMatrix;
+begin
+  SetLength(ret.__data, b.Shape.Col, b.Shape.Row);
+
+  for i := 0 to ret.Shape.Col - 1 do
+  begin
+    for j := 0 to ret.Shape.Row - 1 do
+    begin
+      ret.__data[i, j] := a * b[i, j];
+    end;
+  end;
+
+  Result := ret;
+end;
+
+operator * (const a: TMatrix; const b: double): TMatrix;
+begin
+  Result := b * a;
+end;
+
+operator / (const a: TMatrix; const b: double): TMatrix;
+begin
+  Result := (1 / b) * a;
+end;
+
+operator +(const a: TMatrix): TMatrix;
+begin
+  Result := 1 * a;
+end;
+
+operator -(const a: TMatrix): TMatrix;
+begin
+  Result := -1 * a;
+end;
+
 function TMatrix.Col_num: integer;
 begin
-  Result := Self.Shape[0];
+  Result := Self.Shape.Col;
 end;
 
 function TMatrix.Col_vector(index: integer): TVector;
@@ -76,7 +202,7 @@ end;
 
 function TMatrix.Row_num: integer;
 begin
-  Result := Self.Shape[1];
+  Result := Self.Shape.Row;
 end;
 
 function TMatrix.Row_vector(index: integer): TVector;
@@ -86,13 +212,13 @@ end;
 
 function TMatrix.Shape: TShape;
 begin
-  Result[0] := Length(__data);
-  Result[1] := Length(__data[0]);
+  Result.Col := Length(__data);
+  Result.Row := Length(__data[0]);
 end;
 
 function TMatrix.Size: integer;
 begin
-  Result := Self.Shape[0] * Self.Shape[1];
+  Result := Self.Shape.Row * Self.Shape.Col;
 end;
 
 function TMatrix.ToString: string;
@@ -124,6 +250,14 @@ begin
   finally
     FreeAndNil(sb);
   end;
+end;
+
+class function TMatrix.Zero(col, row: integer): TMatrix;
+var
+  ret: TMatrix;
+begin
+  SetLength(ret.__data, col, row);
+  Result := ret;
 end;
 
 function TMatrix.__getItem(i, j: integer): double;
