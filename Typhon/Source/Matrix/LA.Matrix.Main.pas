@@ -7,7 +7,8 @@ interface
 uses
   Classes,
   SysUtils,
-  LA.Matrix;
+  LA.Matrix,
+  LA.Vector;
 
 procedure Main;
 
@@ -15,7 +16,8 @@ implementation
 
 procedure Main;
 var
-  mtx1, mtx2: TMatrix;
+  mtx1, mtx2, mtx3, mtx4: TMatrix;
+  vec: TVector;
 begin
   mtx1 := TMatrix.Create([[1, 2], [3, 4]]);
 
@@ -41,6 +43,13 @@ begin
   WriteLn(Format('-mtx1 = %s', [(-mtx1).ToString]));
 
   WriteLn(Format('zero = %s', [(TMatrix.Zero(2, 3)).ToString]));
+
+  mtx3 := TMatrix.Create([[1.5, 0], [0, 2]]);
+  vec := TVector.Create([5, 3]);
+  WriteLn(Format('T.dot(p) = %s ', [mtx3.Dot(vec).ToString]));
+
+  mtx4 := TMatrix.Create([[0, 4, 5], [0, 0, 3]]);
+  WriteLn(Format('mtx3.dot(mtx4) = %s ', [mtx3.Dot(mtx4).ToString]));
 end;
 
 end.

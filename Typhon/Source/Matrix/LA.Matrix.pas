@@ -7,7 +7,7 @@ interface
 uses
   Classes,
   SysUtils,
-  Math,
+  //Math,
   LA.Vector;
 
 type
@@ -25,6 +25,8 @@ type
 
     /// <summary> 返回矩阵pos位置的元素 </summary>
     function __getItem(i, j: integer): double;
+    /// <summary> 设置矩阵 i, j位置元素的值 </summary>
+    procedure __setItem(i, j: integer; val: double);
 
   public
     class function Create(list2D: TList2D): TMatrix; static;
@@ -42,10 +44,15 @@ type
     function Col_num: integer;
     /// <summary> 返回矩阵的形状: (行数， 列数) </summary>
     function Shape: TShape;
+    /// <summary> 返回矩阵乘法的结果 </summary>
+    function Dot(const a: TVector): TVector;
+    /// <summary> 返回矩阵乘法的结果 </summary>
+    function Dot(const a: TMatrix): TMatrix;
+
     function Len: integer;
 
     function ToString: string;
-    property Item[row, col: integer]: double read __GetItem; default;
+    property Item[row, col: integer]: double read __getItem write __setItem; default;
   end;
 
 operator +(const a, b: TMatrix): TMatrix;
@@ -179,20 +186,63 @@ end;
 
 function TMatrix.Col_vector(index: integer): TVector;
 var
-  tmp: array of double;
+  ret: TVector;
   i: integer;
 begin
-  SetLength(tmp, Self.Col_num);
+  ret := TVector.Zero(Self.Col_num);
 
   for i := 0 to Self.Col_num - 1 do
-    tmp[i] := self[i, index];
+    ret[i] := self[i, index];
 
-  Result := TVector.Create(tmp);
+  Result := ret;
 end;
 
 class function TMatrix.Create(list2D: TList2D): TMatrix;
 begin
   Result.__data := Copy(list2D);
+end;
+
+function TMatrix.Dot(const a: TMatrix): TMatrix;
+var
+  ret: TMatrix;
+  tmp: TVector;
+  i, j: integer;
+begin
+  if Self.Col_num <> a.Row_num then
+    raise Exception.Create('Error in Matrix-Matrix Multiplication.');
+
+  ret := TMatrix.Zero(Self.Row_num, a.Col_num);
+  tmp := TVector.Zero(ret.Row_num);
+
+  for j := 0 to Self.Col_num - 1 do
+  begin
+    //tmp := a.Row_vector(j);
+    tmp := Self.Dot(a.Col_vector(j));
+
+
+    for i := 0 to ret.Row_num - 1 do
+      ret[i, j] := tmp[i];
+  end;
+
+  Result := ret;
+end;
+
+function TMatrix.Dot(const a: TVector): TVector;
+var
+  ret: TVector;
+  i: integer;
+begin
+  if Self.Row_num <> a.Len then
+    raise Exception.Create('Error in Matrix-Vector Multiplication.');
+
+  ret := TVector.Zero(Self.Col_num);
+
+  for i := 0 to Self.Col_num - 1 do
+  begin
+    ret[i] := a.Dot(Self.Row_vector(i));
+  end;
+
+  Result := ret;
 end;
 
 function TMatrix.Len: integer;
@@ -212,8 +262,8 @@ end;
 
 function TMatrix.Shape: TShape;
 begin
-  Result.Col := Length(__data);
-  Result.Row := Length(__data[0]);
+  Result.Row := Length(__data);
+  Result.col := Length(__data[0]);
 end;
 
 function TMatrix.Size: integer;
@@ -263,6 +313,11 @@ end;
 function TMatrix.__getItem(i, j: integer): double;
 begin
   Result := __data[i, j];
+end;
+
+procedure TMatrix.__setItem(i, j: integer; val: double);
+begin
+  __data[i, j] := val;
 end;
 
 end.

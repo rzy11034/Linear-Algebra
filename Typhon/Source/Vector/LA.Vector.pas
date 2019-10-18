@@ -21,6 +21,8 @@ type
 
     /// <summary> 取向量的第index个元素 </summary>
     function __getItem(index: integer): double;
+    /// <summary> 设置index个元素的值 </summary>
+    procedure __setItem(index: integer; val: double);
 
   public
     class function Create(list: TLists): TVector; static;
@@ -36,7 +38,7 @@ type
     function Dot(const v: TVector): double;
 
     function ToString: string;
-    property Item[index: integer]: double read __GetItem; default;
+    property Item[index: integer]: double read __getItem write __setItem; default;
   end;
 
 operator +(const a, b: TVector): TVector;
@@ -146,6 +148,11 @@ begin
   Result := __data[index];
 end;
 
+procedure TVector.__setItem(index: integer; val: double);
+begin
+  __data[index] := val;
+end;
+
 class function TVector.Create(list: TLists): TVector;
 begin
   Result.__data := Copy(list);
@@ -154,16 +161,19 @@ end;
 function TVector.Dot(const v: TVector): double;
 var
   i: integer;
+  tmp: TVector;
 begin
   if Self.Len <> v.Len then
     raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
 
+  tmp := TVector.Zero(Self.Len);
+
   for i := 0 to Self.Len - 1 do
   begin
-    Self.__data[i] := Self[i] * v[i];
+    tmp[i] := Self[i] * v[i];
   end;
 
-  Result := Sum(Self.__data);
+  Result := Sum(tmp.__data);
 end;
 
 function TVector.Len: integer;

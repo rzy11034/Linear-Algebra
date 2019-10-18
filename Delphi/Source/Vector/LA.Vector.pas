@@ -18,13 +18,15 @@ type
 
     /// <summary> 取向量的第index个元素 </summary>
     function __getItem(index: integer): double;
+    /// <summary> 设置index个元素的值 </summary>
+    procedure __setItem(index: integer; val: double);
 
   public
     class function Create(list: TLists): TVector; static;
     class function Zero(dim: integer): TVector; static;
 
     /// <summary> 返回向量长度（有多少个元素） </summary>
-    function Length: integer;
+    function Len: integer;
     /// <summary> 返回向量的模 </summary>
     function Norm: double;
     /// <summary> 返回向量的单位向量 </summary>
@@ -33,7 +35,7 @@ type
     function Dot(const v: TVector): double;
 
     function ToString: string;
-    property Item[index: integer]: double read __getItem; default;
+    property Item[index: integer]: double read __getItem write __setItem; default;
 
     class operator Add(const a, b: TVector): TVector;
     class operator Subtract(const a, b: TVector): TVector;
@@ -54,12 +56,12 @@ var
   i: integer;
   ret: TVector;
 begin
-  if a.Length <> b.Length then
+  if a.Len <> b.Len then
     raise Exception.Create('Error in adding. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Length);
+  SetLength(ret.__data, a.Len);
 
-  for i := 0 to a.Length - 1 do
+  for i := 0 to a.Len - 1 do
   begin
     ret.__data[i] := a[i] + b[i];
   end;
@@ -80,16 +82,19 @@ end;
 function TVector.Dot(const v: TVector): double;
 var
   i: integer;
+  tmp: TVector;
 begin
-  if Self.Length <> v.Length then
+  if Self.Len <> v.Len then
     raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
 
-  for i := 0 to Self.Length - 1 do
+  tmp := TVector.Zero(Self.Len);
+
+  for i := 0 to Self.Len - 1 do
   begin
-    Self.__data[i] := Self[i] * v[i];
+    tmp[i] := Self[i] * v[i];
   end;
 
-  Result := Sum(Self.__data);
+  Result := Sum(tmp.__data);
 end;
 
 function TVector.__getItem(index: integer): double;
@@ -97,7 +102,12 @@ begin
   Result := __data[index];
 end;
 
-function TVector.Length: integer;
+procedure TVector.__setItem(index: integer; val: double);
+begin
+  __data[index] := val;
+end;
+
+function TVector.Len: integer;
 begin
   Result := System.Length(__data);
 end;
@@ -107,18 +117,18 @@ var
   i: integer;
   ret: TVector;
 begin
-  if a.Length <> b.Length then
+  if a.Len <> b.Len then
     raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Length);
+  SetLength(ret.__data, a.Len);
 
-  for i := 0 to ret.Length - 1 do
+  for i := 0 to ret.Len - 1 do
   begin
     ret.__data[i] := a[i] * b[i];
   end;
 
   Result := ret;
-end;              
+end;
 
 class operator TVector.Multiply(const a: TVector; const b: double): TVector;
 begin
@@ -130,9 +140,9 @@ var
   i: integer;
   ret: TVector;
 begin
-  SetLength(ret.__data, b.Length);
+  SetLength(ret.__data, b.Len);
 
-  for i := 0 to b.Length - 1 do
+  for i := 0 to b.Len - 1 do
   begin
     ret.__data[i] := a * b[i];
   end;
@@ -152,7 +162,7 @@ var
 begin
   tmp := copy(__data);
 
-  for i := 0 to Self.Length - 1 do
+  for i := 0 to Self.Len - 1 do
   begin
     tmp[i] := sqr(__data[i]);
   end;
@@ -181,12 +191,12 @@ var
   i: integer;
   ret: TVector;
 begin
-  if a.Length <> b.Length then
+  if a.Len <> b.Len then
     raise Exception.Create('Error in subtracting. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Length);
+  SetLength(ret.__data, a.Len);
 
-  for i := 0 to a.Length - 1 do
+  for i := 0 to a.Len - 1 do
   begin
     ret.__data[i] := a[i] - b[i];
   end;

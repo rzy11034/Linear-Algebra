@@ -9,7 +9,12 @@ uses
 
 type
   TList2D = array of array of double;
-  TShape = array [0 .. 1] of integer;
+
+  TShape = record
+    Row, Col: integer;
+    function EqualTo(x: TShape): boolean;
+    function ToString: string;
+  end;
 
   TMatrix = record
   private
@@ -36,7 +41,7 @@ type
     function Len: integer;
 
     function ToString: string;
-    property Item[row, col: integer]: double read __getItem; default;
+    property Item[Row, Col: integer]: double read __getItem; default;
   end;
 
 implementation
@@ -45,20 +50,20 @@ implementation
 
 function TMatrix.Col_num: integer;
 begin
-  Result := Self.Shape[0];
+  Result := Self.Shape.Col;
 end;
 
 function TMatrix.Col_vector(index: integer): TVector;
 var
-  tmp: TLists;
+  tmp: TVector;
   i: integer;
 begin
-  SetLength(tmp, Self.Col_num);
+  tmp := TVector.Zero(Self.Col_num);
 
   for i := 0 to Self.Col_num - 1 do
     tmp[i] := Self[i, index];
 
-  Result := TVector.Create(tmp);
+  Result := tmp;
 end;
 
 class function TMatrix.Create(list2D: TList2D): TMatrix;
@@ -73,7 +78,7 @@ end;
 
 function TMatrix.Row_num: integer;
 begin
-  Result := Self.Shape[1];
+  Result := Self.Shape.Row;
 end;
 
 function TMatrix.Row_vector(index: integer): TVector;
@@ -91,13 +96,13 @@ end;
 
 function TMatrix.Shape: TShape;
 begin
-  Result[0] := Length(__data);
-  Result[1] := Length(__data[0]);
+  Result.Col := Length(__data);
+  Result.Row := Length(__data[0]);
 end;
 
 function TMatrix.Size: integer;
 begin
-  Result := Self.Shape[0] * Self.Shape[1];
+  Result := Self.Shape.Col * Self.Shape.Row;
 end;
 
 function TMatrix.ToString: string;
@@ -134,6 +139,37 @@ end;
 function TMatrix.__getItem(i, j: integer): double;
 begin
   Result := __data[i, j];
+end;
+
+{ TShape }
+
+function TShape.EqualTo(x: TShape): boolean;
+begin
+  Result := True;
+
+  if Self.Col <> x.Col then
+    Result := False;
+
+  if Self.Row <> x.Row then
+    Result := False;
+end;
+
+function TShape.ToString: string;
+var
+  sb: TStringBuilder;
+begin
+  sb := TStringBuilder.Create;
+  try
+    sb.Append('(');
+    sb.Append(Self.Col);
+    sb.Append(', ');
+    sb.Append(Self.Row);
+    sb.Append(')');
+
+    Result := sb.ToString;
+  finally
+    FreeAndNil(sb);
+  end;
 end;
 
 end.

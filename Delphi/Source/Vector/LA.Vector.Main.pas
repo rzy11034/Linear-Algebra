@@ -16,7 +16,7 @@ var
 begin
   vec1 := TVector.Create([5, 2]);
   WriteLn(vec1.ToString);
-  WriteLn(vec1.Length);
+  WriteLn(vec1.Len);
   WriteLn(Format('vec[0] = %s, vec[1] = %s', [vec1[0].ToString, vec1[1].ToString]));
 
   vec2 := TVector.Create([3, 1]);
