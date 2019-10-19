@@ -24,7 +24,6 @@ begin
   WriteLn(Format('matrix = %s', [mtx1.ToString]));
   WriteLn(Format('matrix.shape = %s', [mtx1.Shape.ToString]));
   WriteLn(Format('matrix.size = %d', [mtx1.Size]));
-  WriteLn(Format('matrix.len = %d', [mtx1.len]));
   WriteLn(Format('matrix[0][0] = %s', [mtx1[0, 0].ToString]));
 
   WriteLn(Format('matrix.Col_vector[0] = %s', [mtx1.Col_vector(0).ToString]));

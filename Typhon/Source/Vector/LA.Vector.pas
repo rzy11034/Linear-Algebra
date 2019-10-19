@@ -13,10 +13,13 @@ const
   EPSILON = 1E-8;
 
 type
-  TLists = array of double;
+
 
   TVector = object
-  private
+  private type
+    TLists = array of double;
+
+  var
     __data: TLists;
 
     /// <summary> 取向量的第index个元素 </summary>
@@ -62,7 +65,7 @@ begin
   if a.Len <> b.Len then
     raise Exception.Create('Error in adding. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Len);
+  ret := TVector.Zero(a.Len);
 
   for i := 0 to a.Len - 1 do
   begin
@@ -178,7 +181,7 @@ end;
 
 function TVector.Len: integer;
 begin
-  Result := system.Length(__data);
+  Result := Length(__data);
 end;
 
 function TVector.Norm: double;

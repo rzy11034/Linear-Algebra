@@ -8,8 +8,6 @@ uses
   LA.Vector;
 
 type
-  TList2D = array of array of double;
-
   TShape = record
     Row, Col: integer;
     function EqualTo(x: TShape): boolean;
@@ -17,7 +15,10 @@ type
   end;
 
   TMatrix = record
-  private
+  private type
+    TList2D = array of array of double;
+
+  var
     __data: TList2D;
 
     /// <summary> 返回矩阵pos位置的元素 </summary>
@@ -83,10 +84,10 @@ end;
 
 function TMatrix.Row_vector(index: integer): TVector;
 var
-  tmp: TLists;
+  tmp: TVector;
   i: integer;
 begin
-  SetLength(tmp, Self.Row_num);
+  tmp := TVector.Zero(Self.Row_num);
 
   for i := 0 to Self.Row_num - 1 do
     tmp[i] := Self[index, i];

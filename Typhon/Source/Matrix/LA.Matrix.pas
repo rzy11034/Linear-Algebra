@@ -23,14 +23,14 @@ type
   private
     __data: TList2D;
 
-    /// <summary> 返回矩阵pos位置的元素 </summary>
+    /// <summary> 返回矩阵 pos 位置的元素 </summary>
     function __getItem(i, j: integer): double;
-    /// <summary> 设置矩阵 i, j位置元素的值 </summary>
+    /// <summary> 设置矩阵 pos 位置元素的值 </summary>
     procedure __setItem(i, j: integer; val: double);
 
   public
     class function Create(list2D: TList2D): TMatrix; static;
-    class function Zero(col, row: integer): TMatrix; static;
+    class function Zero(row, col: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
     function Row_vector(index: integer): TVector;
@@ -48,8 +48,6 @@ type
     function Dot(const a: TVector): TVector;
     /// <summary> 返回矩阵乘法的结果 </summary>
     function Dot(const a: TMatrix): TMatrix;
-
-    function Len: integer;
 
     function ToString: string;
     property Item[row, col: integer]: double read __getItem write __setItem; default;
@@ -107,13 +105,13 @@ begin
   if a.Shape.EqualTo(b.Shape) = False then
     raise Exception.Create('Error in adding. Shape of matrix must be same.');
 
-  SetLength(ret.__data, a.Shape.Col, a.Shape.Row);
+  ret := TMatrix.Zero(a.Row_num, a.Col_num);
 
   for i := 0 to ret.Shape.Col - 1 do
   begin
     for j := 0 to ret.Shape.Row - 1 do
     begin
-      ret.__data[i, j] := a[i, j] + b[i, j];
+      ret[i, j] := a[i, j] + b[i, j];
     end;
   end;
 
@@ -128,7 +126,7 @@ begin
   if a.Shape.EqualTo(b.Shape) = False then
     raise Exception.Create('Error in subtracting. Shape of matrix must be same.');
 
-  SetLength(ret.__data, a.Shape.Col, a.Shape.Row);
+  ret := TMatrix.Zero(a.Row_num, a.Col_num);
 
   for i := 0 to ret.Shape.Col - 1 do
   begin
@@ -146,13 +144,13 @@ var
   i, j: integer;
   ret: TMatrix;
 begin
-  SetLength(ret.__data, b.Shape.Col, b.Shape.Row);
+  ret := TMatrix.Zero(b.Row_num, b.Col_num);
 
-  for i := 0 to ret.Shape.Col - 1 do
+  for i := 0 to ret.Row_num - 1 do
   begin
-    for j := 0 to ret.Shape.Row - 1 do
+    for j := 0 to ret.Col_num - 1 do
     begin
-      ret.__data[i, j] := a * b[i, j];
+      ret[i, j] := a * b[i, j];
     end;
   end;
 
@@ -214,13 +212,13 @@ begin
   ret := TMatrix.Zero(Self.Row_num, a.Col_num);
   tmp := TVector.Zero(ret.Row_num);
 
-  for j := 0 to Self.Col_num - 1 do
+  for j := 0 to a.Col_num - 1 do
   begin
     //tmp := a.Row_vector(j);
     tmp := Self.Dot(a.Col_vector(j));
 
 
-    for i := 0 to ret.Row_num - 1 do
+    for i := 0 to ret.Col_num - 1 do
       ret[i, j] := tmp[i];
   end;
 
@@ -232,7 +230,7 @@ var
   ret: TVector;
   i: integer;
 begin
-  if Self.Row_num <> a.Len then
+  if Self.Col_num <> a.Len then
     raise Exception.Create('Error in Matrix-Vector Multiplication.');
 
   ret := TVector.Zero(Self.Col_num);
@@ -243,11 +241,6 @@ begin
   end;
 
   Result := ret;
-end;
-
-function TMatrix.Len: integer;
-begin
-  Result := Self.Row_num;
 end;
 
 function TMatrix.Row_num: integer;
@@ -268,7 +261,7 @@ end;
 
 function TMatrix.Size: integer;
 begin
-  Result := Self.Shape.Row * Self.Shape.Col;
+  Result := Self.Row_num * Self.Col_num;
 end;
 
 function TMatrix.ToString: string;
@@ -302,11 +295,11 @@ begin
   end;
 end;
 
-class function TMatrix.Zero(col, row: integer): TMatrix;
+class function TMatrix.Zero(row, col: integer): TMatrix;
 var
   ret: TMatrix;
 begin
-  SetLength(ret.__data, col, row);
+  SetLength(ret.__data, row, col);
   Result := ret;
 end;
 

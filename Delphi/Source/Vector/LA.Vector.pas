@@ -10,10 +10,12 @@ const
   EPSILON = 1E-8;
 
 type
-  TLists = Tarray<double>;
 
   TVector = record
-  private
+  private type
+    TLists = Tarray<double>;
+
+  var
     __data: TLists;
 
     /// <summary> 取向量的第index个元素 </summary>
@@ -59,7 +61,7 @@ begin
   if a.Len <> b.Len then
     raise Exception.Create('Error in adding. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Len);
+  ret := TVector.Zero(a.Len);
 
   for i := 0 to a.Len - 1 do
   begin
@@ -120,7 +122,7 @@ begin
   if a.Len <> b.Len then
     raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
 
-  SetLength(ret.__data, a.Len);
+  ret := TVector.Zero(a.Len);
 
   for i := 0 to ret.Len - 1 do
   begin
@@ -140,7 +142,7 @@ var
   i: integer;
   ret: TVector;
 begin
-  SetLength(ret.__data, b.Len);
+  ret := TVector.Zero(b.Len);
 
   for i := 0 to b.Len - 1 do
   begin
