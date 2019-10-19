@@ -21,11 +21,14 @@ type
   var
     __data: TList2D;
 
-    /// <summary> 返回矩阵pos位置的元素 </summary>
+    /// <summary> 返回矩阵 pos 位置的元素 </summary>
     function __getItem(i, j: integer): double;
+    /// <summary> 设置矩阵 pos 位置元素的值 </summary>
+    procedure __setItem(i, j: integer; val: double);
 
   public
     class function Create(list2D: TList2D): TMatrix; static;
+    class function Zero(Row, Col: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
     function Row_vector(index: integer): TVector;
@@ -39,10 +42,13 @@ type
     function Col_num: integer;
     /// <summary> 返回矩阵的形状: (行数， 列数) </summary>
     function Shape: TShape;
-    function Len: integer;
+    /// <summary> 返回矩阵乘法的结果 </summary>
+    function Dot(const a: TVector): TVector; overload;
+    /// <summary> 返回矩阵乘法的结果 </summary>
+    function Dot(const a: TMatrix): TMatrix; overload;
 
     function ToString: string;
-    property Item[Row, Col: integer]: double read __getItem; default;
+    property Item[Row, Col: integer]: double read __getItem write __setItem; default;
   end;
 
 implementation
@@ -56,15 +62,15 @@ end;
 
 function TMatrix.Col_vector(index: integer): TVector;
 var
-  tmp: TVector;
+  ret: TVector;
   i: integer;
 begin
-  tmp := TVector.Zero(Self.Col_num);
+  ret := TVector.Zero(Self.Col_num);
 
   for i := 0 to Self.Col_num - 1 do
-    tmp[i] := Self[i, index];
+    ret[i] := self[index, i];
 
-  Result := tmp;
+  Result := ret;
 end;
 
 class function TMatrix.Create(list2D: TList2D): TMatrix;
@@ -72,9 +78,44 @@ begin
   Result.__data := Copy(list2D);
 end;
 
-function TMatrix.Len: integer;
+function TMatrix.Dot(const a: TMatrix): TMatrix;
+var
+  ret: TMatrix;
+  tmp: TVector;
+  i, j: integer;
 begin
-  Result := Self.Row_num;
+  if Self.Col_num <> a.Row_num then
+    raise Exception.Create('Error in Matrix-Matrix Multiplication.');
+
+  ret := TMatrix.Zero(Self.Row_num, a.Col_num);
+
+  for j := 0 to a.Col_num - 1 do
+  begin
+    tmp := Self.Dot(a.Row_vector(j));
+
+    for i := 0 to tmp.Len - 1 do
+      ret[i, j] := tmp[i];
+  end;
+
+  Result := ret;
+end;
+
+function TMatrix.Dot(const a: TVector): TVector;
+var
+  ret: TVector;
+  i: integer;
+begin
+  if Self.Col_num <> a.Len then
+    raise Exception.Create('Error in Matrix-Vector Multiplication.');
+
+  ret := TVector.Zero(Self.Row_num);
+
+  for i := 0 to Self.Row_num - 1 do
+  begin  
+    ret[i] := self.Col_vector(i).Dot(a);
+  end;
+
+  Result := ret;
 end;
 
 function TMatrix.Row_num: integer;
@@ -89,21 +130,21 @@ var
 begin
   tmp := TVector.Zero(Self.Row_num);
 
-  for i := 0 to Self.Row_num - 1 do
-    tmp[i] := Self[index, i];
+  for i := 0 to tmp.Len - 1 do
+    tmp[i] := Self.__data[i, index];
 
-  Result := TVector.Create(tmp);
+  Result := tmp;
 end;
 
 function TMatrix.Shape: TShape;
 begin
-  Result.Col := Length(__data);
-  Result.Row := Length(__data[0]);
+  Result.Row := Length(__data);
+  Result.col := Length(__data[0]);
 end;
 
 function TMatrix.Size: integer;
 begin
-  Result := Self.Shape.Col * Self.Shape.Row;
+  Result := Self.Row_num * Self.Col_num;
 end;
 
 function TMatrix.ToString: string;
@@ -113,19 +154,16 @@ var
 begin
   sb := TStringBuilder.Create;
   try
-    sb.AppendLine;
-
-    for i := 0 to high(__data) do
+    for i := 0 to High(__data) do
     begin
-      sb.Append(#9'[');
+      sb.Append('[');
 
-      for j := 0 to high(__data[0]) do
+      for j := 0 to High(__data[0]) do
       begin
-        //sb.Append('[');
         sb.Append(__data[i, j]);
 
-        if j = high(__data[0]) then
-          sb.Append(']'#10)
+        if j = High(__data[0]) then
+          sb.Append(']')
         else
           sb.Append(', ');
       end;
@@ -137,9 +175,22 @@ begin
   end;
 end;
 
+class function TMatrix.Zero(row, col: integer): TMatrix;
+var
+  ret: TMatrix;
+begin
+  SetLength(ret.__data, row, col);
+  Result := ret;
+end;
+
 function TMatrix.__getItem(i, j: integer): double;
 begin
   Result := __data[i, j];
+end;
+
+procedure TMatrix.__setItem(i, j: integer; val: double);
+begin
+  __data[i, j] := val;
 end;
 
 { TShape }
@@ -171,6 +222,6 @@ begin
   finally
     FreeAndNil(sb);
   end;
-end;
+end;                 
 
-end.
+end.               

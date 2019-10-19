@@ -49,6 +49,10 @@ begin
 
   mtx4 := TMatrix.Create([[0, 4, 5], [0, 0, 3]]);
   WriteLn(Format('mtx3.dot(mtx4) = %s ', [mtx3.Dot(mtx4).ToString]));
+
+  WriteLn(Format('A dot B = %s ', [mtx1.Dot(mtx2).ToString]));
+  WriteLn(Format('B dot A = %s ', [mtx2.Dot(mtx1).ToString]));
+
 end;
 
 end.

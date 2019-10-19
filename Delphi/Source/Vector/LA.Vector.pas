@@ -13,7 +13,7 @@ type
 
   TVector = record
   private type
-    TLists = Tarray<double>;
+    TLists = array of double;
 
   var
     __data: TLists;
