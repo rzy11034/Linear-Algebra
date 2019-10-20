@@ -17,7 +17,6 @@ type
 
   var
     __data: TLists;
-
     /// <summary> 取向量的第index个元素 </summary>
     function __getItem(index: integer): double;
     /// <summary> 设置index个元素的值 </summary>
@@ -25,6 +24,7 @@ type
 
   public
     class function Create(list: TLists): TVector; static;
+    /// <summary> 零向量 </summary>
     class function Zero(dim: integer): TVector; static;
 
     /// <summary> 返回向量长度（有多少个元素） </summary>

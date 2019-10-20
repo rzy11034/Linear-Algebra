@@ -32,6 +32,7 @@ type
 
   public
     class function Create(list2D: TList2D): TMatrix; static;
+    /// <summary> 零矩阵 </summary>
     class function Zero(row, col: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
@@ -332,6 +333,7 @@ end;
 procedure TMatrix.__setItem(i, j: integer; val: double);
 begin
   __data[i, j] := val;
+
 end;
 
 end.

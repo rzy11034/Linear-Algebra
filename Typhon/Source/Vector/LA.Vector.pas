@@ -16,7 +16,8 @@ type
 
 
   TVector = object
-  private type
+  private
+    type
     TLists = array of double;
 
   var
@@ -29,6 +30,7 @@ type
 
   public
     class function Create(list: TLists): TVector; static;
+    /// <summary> 零向量 </summary>
     class function Zero(dim: integer): TVector; static;
 
     /// <summary> 返回向量长度（有多少个元素） </summary>
