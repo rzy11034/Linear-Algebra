@@ -12,9 +12,6 @@ uses
   LA.Matrix in 'Source\Matrix\LA.Matrix.pas',
   LA.Matrix.Main in 'Source\Matrix\LA.Matrix.Main.pas';
 
-{$REGION 'MyRegion'}
-
-{$ENDREGION}
 begin
   try
     Run;
@@ -25,4 +22,5 @@ begin
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
   end;
+
 end.

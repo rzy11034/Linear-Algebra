@@ -18,11 +18,11 @@ type
   end;
 
   TMatrix = object
-  private
+  public
     type
     TList2D = array of array of double;
 
-  var
+  private
     __data: TList2D;
 
     /// <summary> 返回矩阵 pos 位置的元素 </summary>
@@ -34,6 +34,8 @@ type
     class function Create(list2D: TList2D): TMatrix; static;
     /// <summary> 零矩阵 </summary>
     class function Zero(row, col: integer): TMatrix; static;
+    /// <summary> 返回一个n行n列的单位矩阵 </summary>
+    class function Identity(n: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
     function Row_vector(index: integer): TVector;
@@ -242,6 +244,18 @@ begin
   end;
 
   Result := ret;
+end;
+
+class function TMatrix.Identity(n: integer): TMatrix;
+var
+  tmp: TList2D;
+  i: integer;
+begin
+  SetLength(tmp, n, n);
+  for i := 0 to Length(tmp) - 1 do
+    tmp[i, i] := 1;
+
+  Result := TMatrix.Create(tmp);
 end;
 
 function TMatrix.Row_num: integer;

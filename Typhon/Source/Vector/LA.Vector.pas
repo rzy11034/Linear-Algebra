@@ -16,11 +16,11 @@ type
 
 
   TVector = object
-  private
+  public
     type
     TLists = array of double;
 
-  var
+  private
     __data: TLists;
 
     /// <summary> 取向量的第index个元素 </summary>
