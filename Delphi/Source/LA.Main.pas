@@ -10,11 +10,11 @@ procedure Run;
 implementation
 
 uses
-  LA.Matrix.Main;
+  LA.LinearSystem.Main;
 
 procedure Run;
 begin
   Main;
-end;
+end;    
 
 end.

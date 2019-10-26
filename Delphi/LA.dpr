@@ -10,7 +10,9 @@ uses
   LA.Vector in 'Source\Vector\LA.Vector.pas',
   LA.Vector.Main in 'Source\Vector\LA.Vector.Main.pas',
   LA.Matrix in 'Source\Matrix\LA.Matrix.pas',
-  LA.Matrix.Main in 'Source\Matrix\LA.Matrix.Main.pas';
+  LA.Matrix.Main in 'Source\Matrix\LA.Matrix.Main.pas',
+  LA.LinearSystem in 'Source\LinearSystem\LA.LinearSystem.pas',
+  LA.LinearSystem.Main in 'Source\LinearSystem\LA.LinearSystem.Main.pas';
 
 begin
   try

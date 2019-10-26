@@ -152,6 +152,8 @@
         <DCCReference Include="Source\Vector\LA.Vector.Main.pas"/>
         <DCCReference Include="Source\Matrix\LA.Matrix.pas"/>
         <DCCReference Include="Source\Matrix\LA.Matrix.Main.pas"/>
+        <DCCReference Include="Source\LinearSystem\LA.LinearSystem.pas"/>
+        <DCCReference Include="Source\LinearSystem\LA.LinearSystem.Main.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

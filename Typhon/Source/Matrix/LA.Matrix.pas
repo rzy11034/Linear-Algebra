@@ -38,9 +38,13 @@ type
     class function Identity(n: integer): TMatrix; static;
 
     /// <summary> 返回矩阵的第index个行向量 </summary>
-    function Row_vector(index: integer): TVector;
+    function Get_Row_vector(index: integer): TVector;
     /// <summary> 返回矩阵的第index个列向量 </summary>
-    function Col_vector(index: integer): TVector;
+    function Get_Col_vector(index: integer): TVector;
+    /// <summary> 设置矩阵的第index个行向量 </summary>
+    procedure Set_Row(index: integer; vec: TVector);
+    /// <summary> 设置矩阵的第index个列向量 </summary>
+    procedure Set_Col(index: integer; Vec: TVector);
     /// <summary> 返回矩阵的元素个数 </summary>
     function Size: integer;
     /// <summary> 返回矩阵的行数 </summary>
@@ -188,7 +192,7 @@ begin
   Result := Self.Shape.Col;
 end;
 
-function TMatrix.Col_vector(index: integer): TVector;
+function TMatrix.Get_Col_vector(index: integer): TVector;
 var
   ret: TVector;
   i: integer;
@@ -196,7 +200,7 @@ begin
   ret := TVector.Zero(Self.Col_num);
 
   for i := 0 to Self.Col_num - 1 do
-    ret[i] := self[index, i];
+    ret[i] := self[i, index];
 
   Result := ret;
 end;
@@ -219,7 +223,7 @@ begin
 
   for j := 0 to a.Col_num - 1 do
   begin
-    tmp := Self.Dot(a.Row_vector(j));
+    tmp := Self.Dot(a.Get_Row_vector(j));
 
     for i := 0 to tmp.Len - 1 do
       ret[i, j] := tmp[i];
@@ -240,7 +244,7 @@ begin
 
   for i := 0 to Self.Col_num - 1 do
   begin
-    ret[i] := Self.Col_vector(i).Dot(a);
+    ret[i] := Self.Get_Col_vector(i).Dot(a);
   end;
 
   Result := ret;
@@ -263,7 +267,7 @@ begin
   Result := Self.Shape.Row;
 end;
 
-function TMatrix.Row_vector(index: integer): TVector;
+function TMatrix.Get_Row_vector(index: integer): TVector;
 var
   tmp: TVector;
   i: integer;
@@ -271,9 +275,39 @@ begin
   tmp := TVector.Zero(Self.Row_num);
 
   for i := 0 to tmp.Len - 1 do
-    tmp[i] := Self.__data[i, index];
+    tmp[i] := Self.__data[index, i];
 
   Result := tmp;
+end;
+
+procedure TMatrix.Set_Col(index: integer; Vec: TVector);
+var
+  tmp: TVector;
+  i: integer;
+begin
+  tmp := Get_Col_vector(index);
+  if tmp.Len <> Vec.Len then
+    raise Exception.Create('Error. Length of vectors must be same.');
+
+  for i := 0 to Col_num - 1 do
+  begin
+    __data[i, index] := Vec[i];
+  end;
+end;
+
+procedure TMatrix.Set_Row(index: integer; vec: TVector);
+var
+  tmp: TVector;
+  i: integer;
+begin
+  tmp := Get_Row_vector(index);
+  if tmp.Len <> Vec.Len then
+    raise Exception.Create('Error. Length of vectors must be same.');
+
+  for i := 0 to Row_num - 1 do
+  begin
+    __data[index, i] := Vec[i];
+  end;
 end;
 
 function TMatrix.Shape: TShape;
@@ -347,7 +381,6 @@ end;
 procedure TMatrix.__setItem(i, j: integer; val: double);
 begin
   __data[i, j] := val;
-
 end;
 
 end.

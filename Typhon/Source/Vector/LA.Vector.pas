@@ -16,7 +16,6 @@ type
 
 
   TVector = object
-  public
     type
     TLists = array of double;
 
@@ -41,6 +40,8 @@ type
     function Normalize: TVector;
     /// <summary> 向量点乘，返回结果标量 </summary>
     function Dot(const v: TVector): double;
+    /// <summary> 返回向量的底层列表 </summary>
+    function UnderlyingList: TLists;
 
     function ToString: string;
     property Item[index: integer]: double read __getItem write __setItem; default;
@@ -235,6 +236,11 @@ begin
   finally
     FreeAndNil(sb);
   end;
+end;
+
+function TVector.UnderlyingList: TLists;
+begin
+  Result := copy(__data);
 end;
 
 class function TVector.Zero(dim: integer): TVector;

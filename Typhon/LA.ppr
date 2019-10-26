@@ -8,6 +8,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   SysUtils,
   LA.Main,
   LA.Utils,
+  LA.LinearSystem, LA.LinearSystem.Main,
   LA.Matrix,
   LA.Matrix.Main,
   LA.Vector,

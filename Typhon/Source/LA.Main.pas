@@ -12,8 +12,7 @@ procedure Run;
 
 implementation
 
-uses
-  LA.Matrix.Main;
+uses LA.LinearSystem.Main;
 
 procedure Run;
 begin

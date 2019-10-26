@@ -28,8 +28,8 @@ procedure Main;
     WriteLn(Format('matrix.size = %d', [mtx1.Size]));
     WriteLn(Format('matrix[0][0] = %s', [mtx1[0, 0].ToString]));
 
-    WriteLn(Format('matrix.Col_vector[0] = %s', [mtx1.Col_vector(0).ToString]));
-    WriteLn(Format('matrix.Row_vector[0] = %s', [mtx1.Row_vector(0).ToString]));
+    WriteLn(Format('matrix.Col_vector[0] = %s', [mtx1.Get_Col_vector(0).ToString]));
+    WriteLn(Format('matrix.Row_vector[0] = %s', [mtx1.Get_Row_vector(0).ToString]));
 
     mtx2 := TMatrix.Create([[5, 6], [7, 8]]);
 
@@ -88,7 +88,6 @@ procedure Main;
   //  t := TMatrix.Create([[1, 0], [0.5, 1]]);
   //
   //end;
-
 begin
   Matrix_Main;
 end;
