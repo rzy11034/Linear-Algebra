@@ -12,7 +12,8 @@ procedure Run;
 
 implementation
 
-uses LA.LinearSystem.Main;
+uses
+  LA.QR.Main;
 
 procedure Run;
 begin

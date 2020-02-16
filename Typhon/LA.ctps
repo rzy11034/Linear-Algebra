@@ -9,97 +9,156 @@
         <Filename Value="LA.ppr"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="17" Y="15"/>
-        <UsageCount Value="127"/>
+        <TopLine Value="4"/>
+        <CursorPos X="14" Y="13"/>
+        <UsageCount Value="232"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Source\LA.Main.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <CursorPos Y="16"/>
-        <UsageCount Value="127"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="8" Y="16"/>
+        <UsageCount Value="232"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Source\LA.Utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="21" Y="14"/>
-        <UsageCount Value="127"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="34" Y="19"/>
+        <UsageCount Value="232"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Source\Vector\LA.Vector.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="151"/>
-        <CursorPos X="3" Y="172"/>
-        <UsageCount Value="101"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="28"/>
+        <CursorPos X="29" Y="253"/>
+        <UsageCount Value="206"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Source\Vector\LA.Vector.Main.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="9"/>
-        <CursorPos Y="51"/>
-        <UsageCount Value="101"/>
+        <TopLine Value="49"/>
+        <CursorPos X="36" Y="57"/>
+        <UsageCount Value="206"/>
       </Unit>
       <Unit>
         <Filename Value="Source\Matrix\LA.Matrix.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="282"/>
-        <CursorPos X="12" Y="310"/>
-        <UsageCount Value="96"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="37" Y="26"/>
+        <UsageCount Value="201"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Source\Matrix\LA.Matrix.Main.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="33"/>
-        <CursorPos X="74" Y="51"/>
-        <FoldState Value=" TMiK2Q)"/>
-        <UsageCount Value="95"/>
+        <TopLine Value="23"/>
+        <CursorPos X="68" Y="59"/>
+        <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="Source\LinearSystem\LA.LinearSystem.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="105"/>
-        <CursorPos Y="118"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="127"/>
+        <CursorPos X="15" Y="144"/>
+        <UsageCount Value="200"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LinearSystem\LA.LinearSystem.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="29" Y="24"/>
+        <UsageCount Value="196"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\Library\LA.Globals.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="34" Y="26"/>
+        <UsageCount Value="170"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LU\LA.LU.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="13"/>
+        <CursorPos Y="29"/>
+        <UsageCount Value="150"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LU\LA.LU.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="56"/>
+        <CursorPos X="22" Y="72"/>
+        <UsageCount Value="75"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="5"/>
+        <CursorPos X="35" Y="58"/>
+        <UsageCount Value="74"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\Library\LA.ArrayList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="43"/>
+        <CursorPos X="41" Y="58"/>
+        <UsageCount Value="179"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3"/>
+        <CursorPos X="35" Y="20"/>
+        <UsageCount Value="63"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.QR.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="5"/>
+        <CursorPos X="24" Y="16"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LA.ArrayLists.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="35" Y="7"/>
+        <UsageCount Value="16"/>
       </Unit>
       <Unit>
         <Filename Value="Source\LA.Vector.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="37"/>
         <CursorPos X="107" Y="116"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="C:\codetyphon\fpcsrc\packages\rtl-extra\src\inc\matrix.pp"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="409"/>
-        <CursorPos X="4" Y="271"/>
-        <UsageCount Value="7"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\codetyphon\fpcsrc\packages\rtl-extra\src\inc\mvecimp.inc"/>
-        <FRMtype Value="0"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="208"/>
-        <CursorPos X="5" Y="222"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\codetyphon\fpcsrc\packages\rtl-extra\src\inc\mmatimp.inc"/>
-        <FRMtype Value="0"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="35"/>
-        <CursorPos X="44" Y="37"/>
-        <UsageCount Value="1"/>
+        <TopLine Value="378"/>
+        <CursorPos X="11" Y="393"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\sysutils\syshelph.inc"/>
@@ -107,31 +166,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="274"/>
         <CursorPos X="14" Y="291"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\sysutils\syshelpf.inc"/>
-        <FRMtype Value="0"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="178"/>
-        <CursorPos X="3" Y="226"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\math.pp"/>
-        <FRMtype Value="0"/>
-        <UnitName Value="Math"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="63"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\mathh.inc"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="88"/>
-        <CursorPos X="14" Y="105"/>
-        <UsageCount Value="9"/>
+        <CursorPos X="16" Y="107"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysdl.inc"/>
@@ -139,7 +181,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="44"/>
         <CursorPos X="10" Y="50"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\innr.inc"/>
@@ -147,31 +189,205 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="112"/>
         <CursorPos X="4" Y="129"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
-        <Filename Value="Source\LinearSystem\LA.LinearSystem.Main.pas"/>
-        <IsPartOfProject Value="True"/>
+        <Filename Value="C:\codetyphon\fpcsrc\packages\rtl-console\src\win\crt.pp"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="21" Y="7"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\typhon\components\pl_Barcodes\source\burender.pas"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="18" Y="18"/>
+        <UsageCount Value="5"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\packages\rtl-objpas\src\inc\rtti.pp"/>
+        <FRMtype Value="0"/>
+        <UnitName Value="Rtti"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
-        <CursorPos X="33" Y="45"/>
-        <UsageCount Value="30"/>
+        <CursorPos X="48" Y="31"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\classes\classesh.inc"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="312"/>
+        <CursorPos X="3" Y="302"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\packages\fcl-stl\src\gvector.pp"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="51"/>
+        <CursorPos X="10" Y="189"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\packages\fcl-stl\src\gmap.pp"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="33"/>
+        <CursorPos X="36" Y="50"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\CodeTyphon\新建文件夹\pkg\LA.ArrayList.pas"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="60"/>
+        <CursorPos X="18" Y="108"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\CodeTyphon\新建文件夹\pkg\ArrayList.pas"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="91"/>
+        <CursorPos X="18" Y="108"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\genmath.inc"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="58"/>
+        <CursorPos X="15" Y="63"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\systemh.inc"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1780"/>
+        <CursorPos X="32" Y="280"/>
+        <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="28" HistoryIndex="27">
+      <Position1>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="376" TopLine="363"/>
+      </Position1>
+      <Position2>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="378" TopLine="363"/>
+      </Position2>
+      <Position3>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="380" TopLine="363"/>
+      </Position3>
+      <Position4>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="381" TopLine="363"/>
+      </Position4>
+      <Position5>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="380" TopLine="363"/>
+      </Position5>
+      <Position6>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="381" TopLine="363"/>
+      </Position6>
+      <Position7>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="380" TopLine="363"/>
+      </Position7>
+      <Position8>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="381" TopLine="363"/>
+      </Position8>
+      <Position9>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="380" TopLine="363"/>
+      </Position9>
+      <Position10>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="378" TopLine="363"/>
+      </Position10>
+      <Position11>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="380" TopLine="363"/>
+      </Position11>
+      <Position12>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="381" TopLine="363"/>
+      </Position12>
+      <Position13>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="397" TopLine="385"/>
+      </Position13>
+      <Position14>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="379" Column="42" TopLine="233"/>
+      </Position14>
+      <Position15>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="378" TopLine="360"/>
+      </Position15>
+      <Position16>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="80" TopLine="69"/>
+      </Position16>
+      <Position17>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="378" TopLine="360"/>
+      </Position17>
+      <Position18>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="80" TopLine="69"/>
+      </Position18>
+      <Position19>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="79" TopLine="63"/>
+      </Position19>
+      <Position20>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="205" TopLine="196"/>
+      </Position20>
+      <Position21>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="74" TopLine="63"/>
+      </Position21>
+      <Position22>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="76" TopLine="63"/>
+      </Position22>
+      <Position23>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="77" TopLine="63"/>
+      </Position23>
+      <Position24>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <Caret Line="74" TopLine="63"/>
+      </Position24>
+      <Position25>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="206" TopLine="196"/>
+      </Position25>
+      <Position26>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="63" Column="23" TopLine="47"/>
+      </Position26>
+      <Position27>
+        <Filename Value="Source\Matrix\LA.Matrix.pas"/>
+        <Caret Line="20" Column="39" TopLine="3"/>
+      </Position27>
+      <Position28>
+        <Filename Value="Source\Vector\LA.Vector.pas"/>
+        <Caret Line="253" Column="29" TopLine="28"/>
+      </Position28>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="0" ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <Watches Count="2">
-      <Item1>
-        <Expression Value="Ab"/>
-      </Item1>
-      <Item2>
-        <Expression Value="TMPVECARR"/>
-      </Item2>
-    </Watches>
-  </Debugging>
 </CONFIG>

@@ -1,37 +1,32 @@
 ﻿unit LA.Vector;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch advancedrecords}
 
 interface
 
 uses
   Classes,
   SysUtils,
-  Math;
-
-const
-  EPSILON = 1E-8;
+  Math,
+  LA.Globals;
 
 type
+  TLists = array of double;
 
-
-  TVector = object
-    type
-    TLists = array of double;
-
+  TVector = record
   private
     __data: TLists;
+
+  public
+    class function Create(list: TLists): TVector; static;
+  /// <summary> 零向量  </summary>
+    class  function Zero(dim: integer): TVector; static;
 
     /// <summary> 取向量的第index个元素 </summary>
     function __getItem(index: integer): double;
     /// <summary> 设置index个元素的值 </summary>
     procedure __setItem(index: integer; val: double);
-
-  public
-    class function Create(list: TLists): TVector; static;
-    /// <summary> 零向量 </summary>
-    class function Zero(dim: integer): TVector; static;
-
     /// <summary> 返回向量长度（有多少个元素） </summary>
     function Len: integer;
     /// <summary> 返回向量的模 </summary>
@@ -45,109 +40,21 @@ type
 
     function ToString: string;
     property Item[index: integer]: double read __getItem write __setItem; default;
-  end;
 
-operator +(const a, b: TVector): TVector;
-operator -(const a, b: TVector): TVector;
-operator * (const a: double; const b: TVector): TVector;
-operator * (const a: TVector; const b: double): TVector;
-operator * (const a, b: TVector): TVector;
-operator / (const a: TVector; const b: double): TVector;
-operator +(const a: TVector): TVector;
-operator -(const a: TVector): TVector;
+    class operator +(const a, b: TVector): TVector;
+    class operator -(const a, b: TVector): TVector;
+    class operator * (const a: double; const b: TVector): TVector;
+    class operator * (const a: TVector; const b: double): TVector;
+    class operator * (const a, b: TVector): TVector;
+    class operator / (const a: TVector; const b: double): TVector;
+    class operator +(const a: TVector): TVector;
+    class operator -(const a: TVector): TVector;
+    class operator = (const a, b: TVector): boolean;
+  end;
 
 implementation
 
 { TVector }
-
-operator +(const a, b: TVector): TVector;
-var
-  i: integer;
-  ret: TVector;
-begin
-  if a.Len <> b.Len then
-    raise Exception.Create('Error in adding. Length of vectors must be same.');
-
-  ret := TVector.Zero(a.Len);
-
-  for i := 0 to a.Len - 1 do
-  begin
-    ret.__data[i] := a[i] + b[i];
-  end;
-
-  Result := ret;
-end;
-
-operator -(const a, b: TVector): TVector;
-var
-  i: integer;
-  ret: TVector;
-begin
-  if a.Len <> b.Len then
-    raise Exception.Create('Error in subtracting. Length of vectors must be same.');
-
-  SetLength(ret.__data, a.Len);
-
-  for i := 0 to a.Len - 1 do
-  begin
-    ret.__data[i] := a[i] - b[i];
-  end;
-
-  Result := ret;
-end;
-
-operator * (const a: double; const b: TVector): TVector;
-var
-  i: integer;
-  ret: TVector;
-begin
-  SetLength(ret.__data, b.Len);
-
-  for i := 0 to b.Len - 1 do
-  begin
-    ret.__data[i] := a * b[i];
-  end;
-
-  Result := ret;
-end;
-
-operator * (const a: TVector; const b: double): TVector;
-begin
-  Result := b * a;
-end;
-
-operator * (const a, b: TVector): TVector;
-var
-  i: integer;
-  ret: TVector;
-begin
-  if a.Len <> b.Len then
-    raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
-
-  SetLength(ret.__data, a.Len);
-
-  for i := 0 to ret.Len - 1 do
-  begin
-    ret.__data[i] := a[i] * b[i];
-  end;
-
-  Result := ret;
-end;
-
-operator / (const a: TVector; const b: double): TVector;
-begin
-  Result := 1 / b * a;
-end;
-
-operator +(const a: TVector): TVector;
-begin
-  Result := 1 * a;
-end;
-
-operator -(const a: TVector): TVector;
-begin
-  Result := -1 * a;
-end;
 
 function TVector.__getItem(index: integer): double;
 begin
@@ -192,7 +99,7 @@ var
   tmp: TLists;
   i: integer;
 begin
-  tmp := copy(__data);
+  tmp := Copy(__data);
 
   for i := 0 to Self.Len - 1 do
   begin
@@ -206,7 +113,7 @@ function TVector.Normalize: TVector;
 var
   ret: TVector;
 begin
-  if Self.Norm < EPSILON then
+  if Is_zero(Self.Norm) then
     raise Exception.Create('Normalize error! norm is zero.');
 
   ret.__data := copy(__data);
@@ -240,7 +147,7 @@ end;
 
 function TVector.UnderlyingList: TLists;
 begin
-  Result := copy(__data);
+  Result := Copy(__data);
 end;
 
 class function TVector.Zero(dim: integer): TVector;
@@ -249,6 +156,111 @@ var
 begin
   SetLength(ret.__data, dim);
   Result := ret;
+end;
+
+class operator TVector. +(const a, b: TVector): TVector;
+var
+  i: integer;
+  ret: TVector;
+begin
+  if a.Len <> b.Len then
+    raise Exception.Create('Error in adding. Length of vectors must be same.');
+
+  ret := TVector.Zero(a.Len);
+
+  for i := 0 to a.Len - 1 do
+  begin
+    ret.__data[i] := a[i] + b[i];
+  end;
+
+  Result := ret;
+end;
+
+class operator TVector. -(const a, b: TVector): TVector;
+var
+  i: integer;
+  ret: TVector;
+begin
+  if a.Len <> b.Len then
+    raise Exception.Create('Error in subtracting. Length of vectors must be same.');
+
+  SetLength(ret.__data, a.Len);
+
+  for i := 0 to a.Len - 1 do
+  begin
+    ret.__data[i] := a[i] - b[i];
+  end;
+
+  Result := ret;
+end;
+
+class operator TVector. * (const a: double; const b: TVector): TVector;
+var
+  i: integer;
+  ret: TVector;
+begin
+  SetLength(ret.__data, b.Len);
+
+  for i := 0 to b.Len - 1 do
+  begin
+    ret.__data[i] := a * b[i];
+  end;
+
+  Result := ret;
+end;
+
+class operator TVector. * (const a: TVector; const b: double): TVector;
+begin
+  Result := b * a;
+end;
+
+class operator TVector. * (const a, b: TVector): TVector;
+var
+  i: integer;
+  ret: TVector;
+begin
+  if a.Len <> b.Len then
+    raise Exception.Create('Error in Dot-Product. Length of vectors must be same.');
+
+  SetLength(ret.__data, a.Len);
+
+  for i := 0 to ret.Len - 1 do
+  begin
+    ret.__data[i] := a[i] * b[i];
+  end;
+
+  Result := ret;
+end;
+
+class operator TVector. / (const a: TVector; const b: double): TVector;
+begin
+  Result := 1 / b * a;
+end;
+
+class operator TVector. +(const a: TVector): TVector;
+begin
+  Result := 1 * a;
+end;
+
+class operator TVector. -(const a: TVector): TVector;
+begin
+  Result := -1 * a;
+end;
+
+class operator TVector. = (const a, b: TVector): boolean;
+var
+  i: integer;
+begin
+  if a.Len <> b.Len then
+    Exit(False);
+
+  for i := 0 to a.Len - 1 do
+  begin
+    if not Is_equal(a[i], b[i]) then
+      Exit(False);
+  end;
+
+  Result := True;
 end;
 
 end.

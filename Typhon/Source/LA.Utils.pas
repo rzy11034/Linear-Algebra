@@ -14,9 +14,9 @@ type
     class procedure DrawLine;
   end;
 
-const
-  END_OF_PROGRAM_EN: string = 'Press any key to continue...';
-  END_OF_PROGRAM_CH: string = '按任意键继续...';
+resourcestring
+  END_OF_PROGRAM_EN = 'Press any key to continue...';
+  END_OF_PROGRAM_CH = '按任意键继续...';
 
 implementation
 

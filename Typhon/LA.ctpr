@@ -22,7 +22,7 @@
           <PathDelim Value="\"/>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem"/>
+            <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem;Source\Library;Source\LU;Source\GramSchmidtProcess"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -45,9 +45,11 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
+              <DebugInfoType Value="dsDwarf2"/>
               <UseHeaptrc Value="True"/>
               <TrashVariables Value="True"/>
+              <UseValgrind Value="True"/>
+              <StripSymbols Value="True"/>
             </Debugging>
           </Linking>
         </CompilerOptions>
@@ -58,7 +60,7 @@
           <PathDelim Value="\"/>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem"/>
+            <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem;Source\Library;Source\LU;Source\GramSchmidtProcess"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -123,6 +125,34 @@
         <Filename Value="Source\LinearSystem\LA.LinearSystem.Main.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="Source\Library\LA.Globals.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LU\LA.LU.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\LU\LA.LU.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\Library\LA.ArrayList.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.GramSchmidtProcess.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Source\GramSchmidtProcess\LA.QR.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -130,7 +160,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem"/>
+      <OtherUnitFiles Value="Source;Source\Vector;Source\Matrix;Source\LinearSystem;Source\Library;Source\LU;Source\GramSchmidtProcess"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
   </CompilerOptions>

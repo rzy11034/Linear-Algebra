@@ -15,7 +15,7 @@ implementation
 
 procedure Main;
 var
-  vec1, vec2, zero: TVector;
+  vec1, vec2, zero, vec3: TVector;
 begin
   vec1 := TVector.Create([5, 2]);
   WriteLn(vec1.ToString);
@@ -55,6 +55,11 @@ begin
 
   WriteLn(Format('%s * %s = %s', [vec1.ToString, vec2.ToString, (vec1 * vec2).ToString]));
   WriteLn(vec1.Dot(vec2).ToString);
+
+  vec3 := TVector.Create([0, 0]);
+  WriteLn(Format('%s = %s ? %s', [zero.ToString, vec3.ToString, BoolToStr(zero = vec3, true)]));
+  WriteLn(Format('%s = %s ? %s', [vec2.ToString, vec3.ToString, BoolToStr(vec2 = vec3, true)]));
+  WriteLn(Format('%s = %s ? %s', [vec2.ToString, vec3.ToString, BoolToStr(vec2 <> vec3, true)]));
 end;
 
 end.

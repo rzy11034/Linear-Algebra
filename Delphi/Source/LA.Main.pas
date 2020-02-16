@@ -3,18 +3,18 @@
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, System.Generics.Defaults;
 
 procedure Run;
 
 implementation
 
 uses
-  LA.LinearSystem.Main;
+  LA.QR.Main;
 
 procedure Run;
 begin
   Main;
-end;    
+end;
 
 end.

@@ -4,17 +4,13 @@ interface
 
 uses
   System.SysUtils,
-  System.Math;
-
-const
-  EPSILON = 1E-8;
+  System.Math,
+  LA.Globals;
 
 type
+  TLists = TArray<double>;
 
   TVector = record
-  public type
-    TLists = array of double;
-
   private
     __data: TLists;
     /// <summary> 取向量的第index个元素 </summary>
@@ -49,6 +45,8 @@ type
     class operator Divide(const a: TVector; const b: double): TVector;
     class operator Positive(const a: TVector): TVector;
     class operator Negative(const a: TVector): TVector;
+    class operator Equal(const a, b: TVector): Boolean;
+    class operator NotEqual(const a, b: TVector): Boolean;
   end;
 
 implementation
@@ -99,6 +97,22 @@ begin
   end;
 
   Result := Sum(tmp.__data);
+end;
+
+class operator TVector.Equal(const a, b: TVector): Boolean;
+var
+  i: integer;
+begin
+  if a.Len <> b.Len then
+    Exit(False);
+
+  for i := 0 to a.Len - 1 do
+  begin
+    if not Is_equal(a[i], b[i]) then
+      Exit(False);
+  end;
+
+  Result := True;
 end;
 
 function TVector.__getItem(index: integer): double;
@@ -178,11 +192,16 @@ function TVector.Normalize: TVector;
 var
   ret: TVector;
 begin
-  if Self.Norm < EPSILON then
+  if Is_zero(Self.Norm) then
     raise Exception.Create('Normalize error! norm is zero.');
 
   ret.__data := copy(__data);
   Result := ret / Self.Norm;
+end;
+
+class operator TVector.NotEqual(const a, b: TVector): Boolean;
+begin
+  Result := not(a = b);
 end;
 
 class operator TVector.Positive(const a: TVector): TVector;

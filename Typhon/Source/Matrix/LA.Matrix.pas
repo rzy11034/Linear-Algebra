@@ -1,42 +1,43 @@
 ﻿unit LA.Matrix;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch advancedrecords}
 
 interface
 
 uses
   Classes,
   SysUtils,
-  //Math,
   LA.Vector;
 
 type
-  TShape = object
+  TShape = record
     Row, Col: integer;
     function EqualTo(x: TShape): boolean;
     function ToString: string;
   end;
 
-  TMatrix = object
-  public
-    type
-    TList2D = array of array of double;
+  TList2D = array of array of double;
+  TVectorArr = array of TVector;
 
+  PMatrix = ^TMatrix;
+  TMatrix = record
   private
     __data: TList2D;
+
+  public
+    class function Create(list2D: TList2D): TMatrix; static;
+    class function Create(vecArr: TVectorArr): TMatrix; static;
+  /// <summary> 零矩阵 </summary>
+    class function Zero(row, col: integer): TMatrix; static;
+  /// <summary> 返回一个n行n列的单位矩阵 </summary>
+    class function Identity(n: integer): TMatrix; static;
+
 
     /// <summary> 返回矩阵 pos 位置的元素 </summary>
     function __getItem(i, j: integer): double;
     /// <summary> 设置矩阵 pos 位置元素的值 </summary>
     procedure __setItem(i, j: integer; val: double);
-
-  public
-    class function Create(list2D: TList2D): TMatrix; static;
-    /// <summary> 零矩阵 </summary>
-    class function Zero(row, col: integer): TMatrix; static;
-    /// <summary> 返回一个n行n列的单位矩阵 </summary>
-    class function Identity(n: integer): TMatrix; static;
-
     /// <summary> 返回矩阵的第index个行向量 </summary>
     function Get_Row_vector(index: integer): TVector;
     /// <summary> 返回矩阵的第index个列向量 </summary>
@@ -58,19 +59,18 @@ type
     /// <summary> 返回矩阵乘法的结果 </summary>
     function Dot(const a: TMatrix): TMatrix;
     /// <summary> 矩阵转置 </summary>
-    procedure Transpose;
-
+    function Transpose: TMatrix;
     function ToString: string;
     property Item[row, col: integer]: double read __getItem write __setItem; default;
-  end;
 
-operator +(const a, b: TMatrix): TMatrix;
-operator -(const a, b: TMatrix): TMatrix;
-operator * (const a: double; const b: TMatrix): TMatrix;
-operator * (const a: TMatrix; const b: double): TMatrix;
-operator / (const a: TMatrix; const b: double): TMatrix;
-operator +(const a: TMatrix): TMatrix;
-operator -(const a: TMatrix): TMatrix;
+    class operator +(const a, b: TMatrix): TMatrix;
+    class operator -(const a, b: TMatrix): TMatrix;
+    class operator * (const a: double; const b: TMatrix): TMatrix;
+    class operator * (const a: TMatrix; const b: double): TMatrix;
+    class operator / (const a: TMatrix; const b: double): TMatrix;
+    class operator +(const a: TMatrix): TMatrix;
+    class operator -(const a: TMatrix): TMatrix;
+  end;
 
 implementation
 
@@ -107,7 +107,7 @@ end;
 
 { TMatrix }
 
-operator +(const a, b: TMatrix): TMatrix;
+class operator TMatrix. +(const a, b: TMatrix): TMatrix;
 var
   i, j: integer;
   ret: TMatrix;
@@ -128,7 +128,7 @@ begin
   Result := ret;
 end;
 
-operator -(const a, b: TMatrix): TMatrix;
+class operator TMatrix. -(const a, b: TMatrix): TMatrix;
 var
   i, j: integer;
   ret: TMatrix;
@@ -149,7 +149,7 @@ begin
   Result := ret;
 end;
 
-operator * (const a: double; const b: TMatrix): TMatrix;
+class operator TMatrix. * (const a: double; const b: TMatrix): TMatrix;
 var
   i, j: integer;
   ret: TMatrix;
@@ -167,22 +167,22 @@ begin
   Result := ret;
 end;
 
-operator * (const a: TMatrix; const b: double): TMatrix;
+class operator TMatrix. * (const a: TMatrix; const b: double): TMatrix;
 begin
   Result := b * a;
 end;
 
-operator / (const a: TMatrix; const b: double): TMatrix;
+class operator TMatrix. / (const a: TMatrix; const b: double): TMatrix;
 begin
   Result := (1 / b) * a;
 end;
 
-operator +(const a: TMatrix): TMatrix;
+class operator TMatrix. +(const a: TMatrix): TMatrix;
 begin
   Result := 1 * a;
 end;
 
-operator -(const a: TMatrix): TMatrix;
+class operator TMatrix. -(const a: TMatrix): TMatrix;
 begin
   Result := -1 * a;
 end;
@@ -192,22 +192,25 @@ begin
   Result := Self.Shape.Col;
 end;
 
-function TMatrix.Get_Col_vector(index: integer): TVector;
-var
-  ret: TVector;
-  i: integer;
-begin
-  ret := TVector.Zero(Self.Col_num);
-
-  for i := 0 to Self.Col_num - 1 do
-    ret[i] := self[i, index];
-
-  Result := ret;
-end;
-
 class function TMatrix.Create(list2D: TList2D): TMatrix;
 begin
   Result.__data := Copy(list2D);
+end;
+
+class function TMatrix.Create(vecArr: TVectorArr): TMatrix;
+var
+  n, i: integer;
+  ret: LA.Matrix.TList2D;
+begin
+  n := Length(vecArr);
+  SetLength(ret, n);
+
+  for i := 0 to n - 1 do
+  begin
+    ret[i] := vecArr[i].UnderlyingList;
+  end;
+
+  Result.__data := Copy(ret);
 end;
 
 function TMatrix.Dot(const a: TMatrix): TMatrix;
@@ -223,7 +226,7 @@ begin
 
   for j := 0 to a.Col_num - 1 do
   begin
-    tmp := Self.Dot(a.Get_Row_vector(j));
+    tmp := Self.Dot(a.Get_Col_vector(j));
 
     for i := 0 to tmp.Len - 1 do
       ret[i, j] := tmp[i];
@@ -240,14 +243,40 @@ begin
   if Self.Col_num <> a.Len then
     raise Exception.Create('Error in Matrix-Vector Multiplication.');
 
-  ret := TVector.Zero(Self.Col_num);
+  ret := TVector.Zero(Self.Row_num);
 
-  for i := 0 to Self.Col_num - 1 do
+  for i := 0 to ret.Len - 1 do
   begin
-    ret[i] := Self.Get_Col_vector(i).Dot(a);
+    ret[i] := Self.Get_Row_vector(i).Dot(a);
   end;
 
   Result := ret;
+end;
+
+function TMatrix.Get_Col_vector(index: integer): TVector;
+var
+  ret: TVector;
+  i: integer;
+begin
+  ret := TVector.Zero(Self.Row_num);
+
+  for i := 0 to ret.Len - 1 do
+    ret[i] := Self[i, index];
+
+  Result := ret;
+end;
+
+function TMatrix.Get_Row_vector(index: integer): TVector;
+var
+  tmp: TVector;
+  i: integer;
+begin
+  tmp := TVector.Zero(Self.Col_num);
+
+  for i := 0 to tmp.Len - 1 do
+    tmp[i] := Self.__data[index, i];
+
+  Result := tmp;
 end;
 
 class function TMatrix.Identity(n: integer): TMatrix;
@@ -265,19 +294,6 @@ end;
 function TMatrix.Row_num: integer;
 begin
   Result := Self.Shape.Row;
-end;
-
-function TMatrix.Get_Row_vector(index: integer): TVector;
-var
-  tmp: TVector;
-  i: integer;
-begin
-  tmp := TVector.Zero(Self.Row_num);
-
-  for i := 0 to tmp.Len - 1 do
-    tmp[i] := Self.__data[index, i];
-
-  Result := tmp;
 end;
 
 procedure TMatrix.Set_Col(index: integer; Vec: TVector);
@@ -336,7 +352,9 @@ begin
       begin
         sb.Append(__data[i, j]);
 
-        if j = High(__data[0]) then
+        if (j = High(__data[0])) and (i <> High(__data)) then
+          sb.Append('],')
+        else if (j = High(__data[0])) and (i = High(__data)) then
           sb.Append(']')
         else
           sb.Append(', ');
@@ -349,7 +367,7 @@ begin
   end;
 end;
 
-procedure TMatrix.Transpose;
+function TMatrix.Transpose: TMatrix;
 var
   tmp: TList2D;
   i, j: integer;
@@ -362,7 +380,7 @@ begin
       tmp[j, i] := Self[i, j];
   end;
 
-  __data := tmp;
+  Result := TMatrix.Create(tmp);
 end;
 
 class function TMatrix.Zero(row, col: integer): TMatrix;
